@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="compound-interest.css">
+    <title>Simple Interest — calc</title>
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <a href="../index.html" class="back-link" aria-label="Back to calculators">←</a>
+            <span class="brand-mark">/</span>
+            <h1>Simple Interest</h1>
+        </div>
+        <p class="tagline">Flat interest on principal, optional contributions.</p>
+    </header>
+
+    <main class="layout calc-layout">
+        <section class="panel form-panel">
+            <div class="panel-header">
+                <h2>Inputs</h2>
+            </div>
+
+            <form id="si-form" autocomplete="off">
+                <div class="form-grid">
+                    <label class="field">
+                        <span>Currency</span>
+                        <select id="currency" name="currency">
+                            <option value="USD">USD — $</option>
+                            <option value="EUR">EUR — €</option>
+                            <option value="GBP">GBP — £</option>
+                            <option value="JPY">JPY — ¥</option>
+                            <option value="AUD">AUD — A$</option>
+                            <option value="CAD">CAD — C$</option>
+                            <option value="CHF">CHF — Fr</option>
+                            <option value="CNY">CNY — ¥</option>
+                            <option value="INR">INR — ₹</option>
+                            <option value="NZD">NZD — NZ$</option>
+                            <option value="SEK">SEK — kr</option>
+                            <option value="NOK">NOK — kr</option>
+                            <option value="DKK">DKK — kr</option>
+                            <option value="ZAR">ZAR — R</option>
+                            <option value="BRL">BRL — R$</option>
+                            <option value="MXN">MXN — Mex$</option>
+                            <option value="SGD">SGD — S$</option>
+                            <option value="HKD">HK$</option>
+                            <option value="KRW">KRW — ₩</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span>Principal</span>
+                        <input type="number" id="principal" name="principal" min="0" step="0.01" value="1000" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Interest Rate (%)</span>
+                        <input type="number" id="rate" name="rate" min="0" step="0.001" value="5" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Rate Period</span>
+                        <select id="ratePeriod" name="ratePeriod">
+                            <option value="yearly" selected>Per year</option>
+                            <option value="monthly">Per month</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span>Duration — Years</span>
+                        <input type="number" id="years" name="years" min="0" step="1" value="5" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Duration — Months</span>
+                        <input type="number" id="months" name="months" min="0" max="11" step="1" value="0" required>
+                    </label>
+                </div>
+
+                <fieldset class="optional-section">
+                    <legend><span class="section-title">Regular Contributions <em>(optional)</em></span></legend>
+
+                    <div class="form-grid contrib-grid">
+                        <label class="field">
+                            <span>Contribution Amount</span>
+                            <input type="number" id="contribAmount" name="contribAmount" min="0" step="0.01" value="0">
+                        </label>
+
+                        <label class="field">
+                            <span>Contribution Frequency</span>
+                            <select id="contribFreq" name="contribFreq">
+                                <option value="weekly">Weekly</option>
+                                <option value="biweekly">Bi-weekly</option>
+                                <option value="monthly" selected>Monthly</option>
+                                <option value="quarterly">Quarterly</option>
+                                <option value="halfyearly">Half-yearly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Calculate</button>
+                    <button type="button" id="saveBtn" class="btn-ghost" disabled>Save Result</button>
+                    <button type="reset" class="btn-ghost">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel result-panel">
+            <div class="panel-header">
+                <h2>Result</h2>
+            </div>
+
+            <div id="resultEmpty" class="empty-state">Enter inputs and click Calculate to see results.</div>
+
+            <div id="resultContent" hidden>
+                <div class="summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Final Balance</span>
+                        <span class="summary-value accent" id="finalBalance">—</span>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-item">
+                            <span class="summary-label">Total Deposited</span>
+                            <span class="summary-value" id="totalDeposited">—</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Interest</span>
+                            <span class="summary-value" id="totalInterest">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="breakdown">
+                    <h3>Yearly Breakdown</h3>
+                    <div class="table-wrap">
+                        <table id="breakdownTable">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Contributions</th>
+                                    <th>Interest</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span><a href="../index.html" class="footer-link">← back to calc</a></span>
+    </footer>
+
+    <script src="simple-interest.js"></script>
+</body>
+</html>

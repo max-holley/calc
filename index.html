@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>calc</title>
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <span class="brand-mark">/</span>
+            <h1>calc</h1>
+        </div>
+        <p class="tagline">A considered collection of calculators.</p>
+    </header>
+
+    <main class="layout">
+        <section class="panel calculators-panel">
+            <div class="panel-header">
+                <h2>Calculators</h2>
+                <span class="panel-meta" id="calc-count">0 available</span>
+            </div>
+            <div class="search-wrap">
+                <input
+                    type="search"
+                    id="calc-search"
+                    class="search-input"
+                    placeholder="Search calculators…"
+                    autocomplete="off"
+                    aria-label="Search calculators"
+                >
+            </div>
+            <ul class="calc-list" id="calc-list"></ul>
+            <p class="empty-state" id="calc-empty" hidden>No calculators yet. More on the way.</p>
+            <p class="empty-state" id="calc-no-match" hidden>No calculators match your search.</p>
+        </section>
+
+        <aside class="panel saved-panel">
+            <div class="panel-header">
+                <h2>Saved Calculations</h2>
+                <button class="btn-ghost" id="clear-saved" type="button">Clear all</button>
+            </div>
+            <ul class="saved-list" id="saved-list"></ul>
+            <p class="empty-state" id="saved-empty">Nothing saved yet. Saved calculations from any calculator will appear here.</p>
+        </aside>
+    </main>
+
+    <footer class="site-footer">
+        <span>Local-only. Saved data lives in your browser.</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
