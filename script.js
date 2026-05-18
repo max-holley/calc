@@ -110,6 +110,9 @@ function renderSaved() {
     items.forEach((item, idx) => {
         const li = document.createElement('li');
         li.className = 'saved-item';
+        li.tabIndex = 0;
+        li.setAttribute('role', 'button');
+        li.setAttribute('aria-label', `View details for ${item.title || 'saved calculation'}`);
 
         const head = document.createElement('div');
         head.className = 'saved-head';
@@ -134,7 +137,8 @@ function renderSaved() {
         del.className = 'btn-mini danger';
         del.type = 'button';
         del.textContent = 'Delete';
-        del.addEventListener('click', () => {
+        del.addEventListener('click', (e) => {
+            e.stopPropagation();
             const current = getSaved();
             current.splice(idx, 1);
             setSaved(current);
@@ -145,6 +149,17 @@ function renderSaved() {
         li.appendChild(head);
         li.appendChild(expr);
         li.appendChild(actions);
+
+        li.addEventListener('click', () => {
+            if (window.detailModal) window.detailModal(item);
+        });
+        li.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (window.detailModal) window.detailModal(item);
+            }
+        });
+
         list.appendChild(li);
     });
 }

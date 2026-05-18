@@ -152,8 +152,19 @@ function buildSaveEntry(v, result) {
     };
 }
 
-function saveResult() {
+async function saveResult() {
     if (!lastResult) return;
+    const entry = buildSaveEntry(lastResult.v, lastResult.result);
+    const label = await window.promptModal({
+        title: 'Save Calculation',
+        label: 'Name or description',
+        defaultValue: entry.title,
+        placeholder: 'e.g. Savings plan',
+        okText: 'Save',
+    });
+    if (label === null) return;
+    const trimmed = label.trim();
+    if (trimmed) entry.title = trimmed;
     try {
         const raw = localStorage.getItem(STORAGE_KEY);
         const items = raw ? JSON.parse(raw) : [];
@@ -161,7 +172,7 @@ function saveResult() {
         arr.unshift({
             id: crypto.randomUUID(),
             createdAt: Date.now(),
-            ...buildSaveEntry(lastResult.v, lastResult.result),
+            ...entry,
         });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
         const btn = document.getElementById('saveBtn');
